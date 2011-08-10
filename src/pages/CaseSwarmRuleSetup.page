@@ -1,0 +1,104 @@
+<apex:page tabStyle="Case_Swarm_Rule__c" title="Case Swarm Rule Setup" controller="CaseSwarmRuleSetup">
+    <script>
+        // Automatically run hideAll() on page load
+        var previousOnload = window.onload;        
+        window.onload = function() { 
+            if (previousOnload) { 
+                previousOnload();
+            }
+            hideAll();
+            
+            // Defaults to the first radio selection
+            document.getElementById('j_id0:j_id30:j_id31:step1Options:0').checked = true;
+        }
+    
+        function hideAll(value) {
+            document.getElementById('statusFilter').style.display = 'none';
+            document.getElementById('priorityFilter').style.display = 'none';
+            document.getElementById('typeFilter').style.display = 'none';
+    
+            if (value == 'Only Cases with a certain Status') {
+                document.getElementById('statusFilter').style.display = 'block';
+            }
+    
+            if (value == 'Only Cases with a certain Priority') {
+                document.getElementById('priorityFilter').style.display = 'block';
+            }
+    
+            if (value == 'Only Cases of a certain Type') {
+                document.getElementById('typeFilter').style.display = 'block';
+            }
+        }
+    
+    </script>
+
+    <link rel="stylesheet" href="{!$Resource.jQuery_CSS}" type="text/css" />
+    <link type="text/css" rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/themes/base/ui.all.css" />
+    <link type="text/css" href="{!$Resource.jQuery_Multiselect_CSS}" rel="stylesheet" />
+    <script type="text/javascript" src="{!$Resource.jQuery_JS}"></script>
+    <script type="text/javascript" src="{!$Resource.jQuery_UI_JS}"></script>
+    <script type="text/javascript" src="{!$Resource.jQuery_scrollTo_JS}"></script>
+    <script type="text/javascript" src="{!$Resource.jQuery_Multiselect_JS}"></script>
+    <script type="text/javascript">
+        $(function(){
+            $(".multiselect").multiselect();
+            $(".multiselect").multiselect({sortable: false});
+            $('#switcher').themeswitcher();
+        });
+    </script>
+
+    <apex:pageBlock id="theBlock" >
+        <apex:pageMessages />
+    </apex:pageBlock>
+    
+   <div class="bPageTitle">
+       <div class="ptBody secondaryPalette">
+           <div class="content"><img src="/s.gif" alt="Case Swarm Rule"  class="pageTitleIcon" title="Case Swarm Rule"/>
+               <h1 class="pageType">Case Swarm Rule Setup<span  class="titleSeparatingColon">:</span></h1>
+               <h2 class="pageDescription"> New Case Swarm Rule</h2>
+               <div class="blank">&nbsp;</div>
+           </div>
+       </div>
+   </div>
+
+
+    <apex:form >
+        <apex:pageBlock title="Step 1: What types of Cases do you want to auto-follow?">
+
+            <div id="radioDiv"><apex:selectRadio id="step1Options" value="{!step1}" onclick="hideAll(this.value)" layout="pageDirection" required="true">
+                <apex:selectOption itemValue="All Cases" itemLabel="All Cases" />
+                <apex:selectOption itemValue="Only Cases for Accounts I Own" itemLabel="Only Cases for Accounts I Own" />
+                <apex:selectOption itemValue="Only Cases owned by my direct reports" itemLabel="Only Cases owned by my direct reports" />
+                <apex:selectOption itemValue="Only Cases with a certain Status" itemLabel="Only Cases with a certain Status" />
+                <apex:selectOption itemValue="Only Cases with a certain Priority" itemLabel="Only Cases with a certain Priority" />
+                <apex:selectOption itemValue="Only Cases of a certain Type" itemLabel="Only Cases of a certain Type" />
+            </apex:selectRadio></div>
+
+            <p><div id="statusFilter">Case Status Filter:&nbsp;&nbsp; <apex:selectList value="{!withStatus}" multiselect="false" size="1">
+                <apex:selectOptions value="{!statusOptions}"/>
+            </apex:selectList></div></p>
+
+            <p><div id="priorityFilter">Case Priority Filter:&nbsp;&nbsp; <apex:selectList value="{!withPriority}" multiselect="false" size="1">
+                <apex:selectOptions value="{!priorityOptions}"/>
+            </apex:selectList></div></p>
+
+            <p><div id="typeFilter">Case Type Filter:&nbsp;&nbsp; <apex:selectList value="{!withType}" multiselect="false" size="1">
+                <apex:selectOptions value="{!typeOptions}"/>
+            </apex:selectList></div></p>
+        </apex:pageBlock>
+
+        <apex:pageBlock title="Step 2: Whom do you want to auto-follow these Cases?">
+        
+            <apex:selectList value="{!usersSelected}" multiselect="true" styleClass="multiselect">
+                    <apex:selectOptions value="{!userOptions}"/>
+            </apex:selectList>
+
+            <p><apex:inputCheckbox id="notify" value="{!notify}" title="Puts a post on the the newsfeed of users with a link to the record swarmed." /> Notify on Swarm?</p>
+
+            <p><apex:commandButton value="Save" action="{!action}" rerender="theBlock"/></p>
+        </apex:pageBlock>
+    </apex:form>
+
+    <script type="text/javascript" src="http://jqueryui.com/themeroller/themeswitchertool/"></script>
+    <div id="switcher" style="visibility: hidden;"></div>
+</apex:page>

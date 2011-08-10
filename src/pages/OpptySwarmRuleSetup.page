@@ -1,0 +1,104 @@
+<apex:page tabStyle="Opportunity_Swarm_Rule__c" title="Opportunity Swarm Rule Setup" controller="OpptySwarmRuleSetup">
+
+    <script>
+        // Automatically run hideAll() on page load
+        var previousOnload = window.onload;        
+        window.onload = function() { 
+            if (previousOnload) { 
+                previousOnload();
+            }
+            hideAll();
+            
+            // Defaults to the first radio selection
+            document.getElementById('j_id0:j_id29:j_id30:step1Options:0').checked = true;
+        }
+    
+        function hideAll(value) {
+            document.getElementById('amountFilter').style.display = 'none';
+            document.getElementById('stageFilter').style.display = 'none';
+            document.getElementById('typeFilter').style.display = 'none';
+    
+            if (value == 'Only Opportunities above a certain amount') {
+                document.getElementById('amountFilter').style.display = 'block';
+            }
+    
+            if (value == 'Only Opportunities that reach a certain stage in the sales process') {
+                document.getElementById('stageFilter').style.display = 'block';
+            }
+    
+            if (value == 'Only Opportunities of a certain Type') {
+                document.getElementById('typeFilter').style.display = 'block';
+            }
+        }
+    
+    </script>
+
+    <link rel="stylesheet" href="{!$Resource.jQuery_CSS}" type="text/css" />
+    <link type="text/css" rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/themes/base/ui.all.css" />
+    <link type="text/css" href="{!$Resource.jQuery_Multiselect_CSS}" rel="stylesheet" />
+    <script type="text/javascript" src="{!$Resource.jQuery_JS}"></script>
+    <script type="text/javascript" src="{!$Resource.jQuery_UI_JS}"></script>
+    <script type="text/javascript" src="{!$Resource.jQuery_scrollTo_JS}"></script>
+    <script type="text/javascript" src="{!$Resource.jQuery_Multiselect_JS}"></script>
+    <script type="text/javascript">
+        $(function(){
+            $(".multiselect").multiselect();
+            $(".multiselect").multiselect({sortable: false});
+            $('#switcher').themeswitcher();
+        });
+    </script>
+
+   <div class="bPageTitle">
+       <div class="ptBody secondaryPalette">
+           <div class="content"><img src="/s.gif" alt="Opportunity Swarm Rule"  class="pageTitleIcon" title="Opportunity Swarm Rule"/>
+               <h1 class="pageType">Opportunity Swarm Rule Setup<span  class="titleSeparatingColon">:</span></h1>
+               <h2 class="pageDescription"> New Opportunity Swarm Rule</h2>
+               <div class="blank">&nbsp;</div>
+           </div>
+       </div>
+   </div>
+
+<apex:pageBlock id="theBlock" >
+    <apex:pageMessages />
+</apex:pageBlock>
+    
+    <apex:form >
+        <apex:pageBlock title="Step 1: What types of Opportunities do you want to auto-follow?">
+
+            <apex:selectRadio id="step1Options" value="{!step1}" onclick="hideAll(this.value)" layout="pageDirection" required="true">
+                <apex:selectOption itemValue="All Opportunities" itemLabel="All Opportunities" />
+                <apex:selectOption itemValue="Only Opportunities for Accounts I Own" itemLabel="Only Opportunities for Accounts I Own" />
+                <apex:selectOption itemValue="Only Opportunities owned by my direct reports" itemLabel="Only Opportunities owned by my direct reports" />
+                <apex:selectOption itemValue="Only Opportunities above a certain amount" itemLabel="Only Opportunities above a certain amount" />
+                <apex:selectOption itemValue="Only Opportunities that reach a certain stage in the sales process" itemLabel="Only Opportunities that reach a certain stage in the sales process" />
+                <apex:selectOption itemValue="Only Opportunities of a certain Type" itemLabel="Only Opportunities of a certain Type" />
+            </apex:selectRadio>
+
+            <p><div id="amountFilter">
+                Opportunities with Amount equal or greater to &nbsp;&nbsp;<apex:inputText id="amount" value="{!amount}"/>
+            </div></p>
+
+            <p><div id="stageFilter">Opportunity Stage Filter:&nbsp;&nbsp; <apex:selectList value="{!withStage}" multiselect="false" size="1">
+                <apex:selectOptions value="{!stageOptions}"/>
+            </apex:selectList></div></p>
+
+            <p><div id="typeFilter">Opportunity Type Filter:&nbsp;&nbsp; <apex:selectList value="{!withType}" multiselect="false" size="1">
+                <apex:selectOptions value="{!typeOptions}"/>
+            </apex:selectList></div></p>
+        </apex:pageBlock>
+
+        <apex:pageBlock title="Step 2: Whom do you want to auto-follow these Opportunities?">
+        
+            <apex:selectList value="{!usersSelected}" multiselect="true" styleClass="multiselect">
+                    <apex:selectOptions value="{!userOptions}"/>
+            </apex:selectList>
+
+            <p><apex:inputCheckbox id="notify" value="{!notify}" title="Puts a post on the the newsfeed of users with a link to the record swarmed." /> Notify on Swarm?</p>
+        
+            <p><apex:commandButton value="Save" action="{!saveOpptySwarmRule}" rerender="theBlock" /></p>
+        </apex:pageBlock>
+    </apex:form>
+
+    <script type="text/javascript" src="http://jqueryui.com/themeroller/themeswitchertool/"></script>
+    <div id="switcher" style="visibility: hidden;"></div>
+</apex:page>

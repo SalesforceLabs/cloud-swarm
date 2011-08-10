@@ -1,0 +1,69 @@
+<apex:page tabStyle="Feed_Post_Swarm_Rule__c" title="Feed Post Swarm Rule Setup" controller="FeedPostSwarmRuleSetup">
+
+    <link rel="stylesheet" href="{!$Resource.jQuery_CSS}" type="text/css" />
+    <link type="text/css" rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/themes/base/ui.all.css" />
+    <link type="text/css" href="{!$Resource.jQuery_Multiselect_CSS}" rel="stylesheet" />
+    <script type="text/javascript" src="{!$Resource.jQuery_JS}"></script>
+    <script type="text/javascript" src="{!$Resource.jQuery_UI_JS}"></script>
+    <script type="text/javascript" src="{!$Resource.jQuery_scrollTo_JS}"></script>
+    <script type="text/javascript" src="{!$Resource.jQuery_Multiselect_JS}"></script>
+    <script type="text/javascript">
+        $(function(){
+            $(".multiselect").multiselect();
+            $(".multiselect").multiselect({sortable: false});
+            $('#switcher').themeswitcher();
+        });
+    </script>
+
+   <div class="bPageTitle">
+       <div class="ptBody secondaryPalette">
+           <div class="content"><img src="/s.gif" alt="Feed Post Swarm Rule"  class="pageTitleIcon" title="Feed Post Swarm Rule"/>
+               <h1 class="pageType">Feed Post Swarm Rule Setup<span  class="titleSeparatingColon">:</span></h1>
+               <h2 class="pageDescription"> New Feed Post Swarm Rule</h2>
+               <div class="blank">&nbsp;</div>
+           </div>
+       </div>
+   </div>
+
+<apex:pageBlock id="theBlock" >
+    <apex:pageMessages />
+</apex:pageBlock>
+    
+    <apex:form >
+        <apex:pageBlock title="Step 1: Set up the rules for auto-following when someone enters the Trigger Text in a Feed Post">
+
+            <table>
+                <tr>
+                    <td>Trigger Text:&nbsp;&nbsp;</td>
+                    <td><apex:inputText id="triggerText" value="{!triggerText}"/></td>
+                </tr>
+                <tr>
+                    <td>Description:&nbsp;&nbsp;</td>
+                    <td><apex:inputText id="description" value="{!description}" size="70"/></td>
+                </tr>
+                <tr>
+                    <td id="followOrUnfollow">Follow or Unfollow?:&nbsp;&nbsp;</td>
+                    <td>
+                        <apex:selectList value="{!followOrUnfollow}" multiselect="false" size="1">
+                            <apex:selectOptions value="{!followOrUnfollowOptions}"/>
+                        </apex:selectList>
+                    </td>
+                </tr>
+            </table>
+        </apex:pageBlock>
+
+        <apex:pageBlock title="Step 2: Whom do you want to auto-follow on trigger text being entered in a Feed Post?">
+        
+            <apex:selectList value="{!usersSelected}" multiselect="true" styleClass="multiselect">
+                    <apex:selectOptions value="{!userOptions}"/>
+            </apex:selectList>
+
+            <p><apex:inputCheckbox id="notify" value="{!notify}" title="Puts a post on the the newsfeed of users with a link to the record swarmed." /> Notify on Swarm?</p>
+        
+            <p><apex:commandButton value="Save" action="{!saveFeedPostSwarmRule}" rerender="theBlock" /></p>
+        </apex:pageBlock>
+    </apex:form>
+
+    <script type="text/javascript" src="http://jqueryui.com/themeroller/themeswitchertool/"></script>
+    <div id="switcher" style="visibility: hidden;"></div>
+</apex:page>
