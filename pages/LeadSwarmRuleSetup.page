@@ -1,0 +1,113 @@
+<apex:page tabStyle="Lead_Swarm_Rule__c" title="Lead Swarm Rule Setup" controller="LeadSwarmRuleSetup">
+
+    <script>
+        // Automatically run hideAll() on page load
+        var previousOnload = window.onload;        
+        window.onload = function() { 
+            if (previousOnload) { 
+                previousOnload();
+            }
+            hideAll();
+            
+            // Defaults to the first radio selection
+            document.getElementById('j_id0:j_id29:j_id30:step1Options:0').checked = true;
+        }
+    
+        function hideAll(value) {
+            document.getElementById('ratingFilter').style.display = 'none';
+            document.getElementById('statusFilter').style.display = 'none';
+            document.getElementById('sourceFilter').style.display = 'none';
+            document.getElementById('industryFilter').style.display = 'none';
+    
+            if (value == 'Only Leads with a certain Rating') {
+                document.getElementById('ratingFilter').style.display = 'block';
+            }
+    
+            if (value == 'Only Leads with a certain Status') {
+                document.getElementById('statusFilter').style.display = 'block';
+            }
+    
+            if (value == 'Only Leads from a certain Lead Source') {
+                document.getElementById('sourceFilter').style.display = 'block';
+            }
+
+            if (value == 'Only Leads for a certain Industry') {
+                document.getElementById('industryFilter').style.display = 'block';
+            }
+        }
+    
+    </script>
+
+    <link rel="stylesheet" href="{!$Resource.jQuery_CSS}" type="text/css" />
+    <link type="text/css" rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/themes/base/ui.all.css" />
+    <link type="text/css" href="{!$Resource.jQuery_Multiselect_CSS}" rel="stylesheet" />
+    <script type="text/javascript" src="{!$Resource.jQuery_JS}"></script>
+    <script type="text/javascript" src="{!$Resource.jQuery_UI_JS}"></script>
+    <script type="text/javascript" src="{!$Resource.jQuery_scrollTo_JS}"></script>
+    <script type="text/javascript" src="{!$Resource.jQuery_Multiselect_JS}"></script>
+    <script type="text/javascript">
+        $(function(){
+            $(".multiselect").multiselect();
+            $(".multiselect").multiselect({sortable: false});
+            $('#switcher').themeswitcher();
+        });
+    </script>
+
+   <div class="bPageTitle">
+       <div class="ptBody secondaryPalette">
+           <div class="content"><img src="/s.gif" alt="Lead Swarm Rule"  class="pageTitleIcon" title="Lead Swarm Rule"/>
+               <h1 class="pageType">Lead Swarm Rule Setup<span  class="titleSeparatingColon">:</span></h1>
+               <h2 class="pageDescription"> New Lead Swarm Rule</h2>
+               <div class="blank">&nbsp;</div>
+           </div>
+       </div>
+   </div>
+
+<apex:pageBlock id="theBlock" >
+    <apex:pageMessages />
+</apex:pageBlock>
+    
+    <apex:form >
+        <apex:pageBlock title="Step 1: What types of Leads do you want to auto-follow?">
+
+            <apex:selectRadio id="step1Options" value="{!step1}" onclick="hideAll(this.value)" layout="pageDirection" required="true">
+                <apex:selectOption itemValue="All Leads" itemLabel="All Leads" />
+                <apex:selectOption itemValue="Only Leads owned by my direct reports" itemLabel="Only Leads owned by my direct reports" />
+                <apex:selectOption itemValue="Only Leads with a certain Rating" itemLabel="Only Leads with a certain Rating" />
+                <apex:selectOption itemValue="Only Leads with a certain Status" itemLabel="Only Leads with a certain Status" />
+                <apex:selectOption itemValue="Only Leads from a certain Lead Source" itemLabel="Only Leads from a certain Lead Source" />
+                <apex:selectOption itemValue="Only Leads for a certain Industry" itemLabel="Only Leads for a certain Industry" />
+            </apex:selectRadio>
+
+            <p><div id="ratingFilter">Lead Rating Filter:&nbsp;&nbsp; <apex:selectList value="{!withRating}" multiselect="false" size="1">
+                <apex:selectOptions value="{!ratingOptions}"/>
+            </apex:selectList></div></p>
+
+            <p><div id="statusFilter">Lead Status Filter:&nbsp;&nbsp; <apex:selectList value="{!withStatus}" multiselect="false" size="1">
+                <apex:selectOptions value="{!statusOptions}"/>
+            </apex:selectList></div></p>
+
+            <p><div id="sourceFilter">Lead Source Filter:&nbsp;&nbsp; <apex:selectList value="{!withSource}" multiselect="false" size="1">
+                <apex:selectOptions value="{!sourceOptions}"/>
+            </apex:selectList></div></p>
+
+            <p><div id="industryFilter">Lead Industry Filter:&nbsp;&nbsp; <apex:selectList value="{!withIndustry}" multiselect="false" size="1">
+                <apex:selectOptions value="{!industryOptions}"/>
+            </apex:selectList></div></p>
+        </apex:pageBlock>
+
+        <apex:pageBlock title="Step 2: Whom do you want to auto-follow these Leads?">
+        
+            <apex:selectList value="{!usersSelected}" multiselect="true" styleClass="multiselect">
+                    <apex:selectOptions value="{!userOptions}"/>
+            </apex:selectList>
+
+            <p><apex:inputCheckbox id="notify" value="{!notify}" title="Puts a post on the the newsfeed of users with a link to the record swarmed." /> Notify on Swarm?</p>
+        
+            <p><apex:commandButton value="Save" action="{!saveLeadSwarmRule}" rerender="theBlock" /></p>
+        </apex:pageBlock>
+    </apex:form>
+
+    <script type="text/javascript" src="http://jqueryui.com/themeroller/themeswitchertool/"></script>
+    <div id="switcher" style="visibility: hidden;"></div>
+</apex:page>
