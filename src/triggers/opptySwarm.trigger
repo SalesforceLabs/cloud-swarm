@@ -35,6 +35,9 @@ trigger opptySwarm on Opportunity (after insert, after update) {
         opptyIds.add(thisOppty.Id);
     }// for
 
-    SwarmHelper.evaluateOpptyRules(opptyIds);
-
+    if (opptyIds.size() > 1) {
+        SwarmHelper.evaluateOpptyRulesFuture(opptyIds);
+    } else {
+        SwarmHelper.evaluateOpptyRules(opptyIds);
+    }
 }

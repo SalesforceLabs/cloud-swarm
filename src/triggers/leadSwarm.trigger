@@ -35,6 +35,9 @@ trigger leadSwarm on Lead (after insert, after update) {
         leadIds.add(thisLead.Id);
     }// for
 
-    SwarmHelper.evaluateLeadRules(leadIds);
-
+    if (leadIds.size() > 1) {
+        SwarmHelper.evaluateLeadRulesFuture(leadIds);
+    } else {
+        SwarmHelper.evaluateLeadRules(leadIds);
+    }
 }

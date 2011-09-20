@@ -52,7 +52,7 @@ public class FeedPostSwarmTest {
 
         // Check that options are populating
         System.assert(0 < controller.getFollowOrUnfollowOptions().size());
-        System.assert(0 < controller.getUserOptions().size());
+        System.assert(0 < controller.getUserOptions().getSize());
     }
     
     static testMethod void testFollowAndUnfollow() {

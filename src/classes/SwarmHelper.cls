@@ -30,9 +30,13 @@ By: Chris Kemp <ckemp@salesforce.com> and Sandy Jones <sajones@salesforce.com>
         Reid Carlberg <reid.carlberg@salesforce.com>
 */
 
-public with sharing global class SwarmHelper {
+public without sharing global class SwarmHelper {
     
     @future
+    public static void evaluateOpptyRulesFuture(List<Id> opptyIds) {
+        evaluateOpptyRules(opptyIds);
+    }
+
     public static void evaluateOpptyRules(List<Id> opptyIds) {
     
         List<Opportunity> opptys = [SELECT Id, Name, Type, AccountId, StageName, Amount, OwnerId
@@ -101,7 +105,7 @@ public with sharing global class SwarmHelper {
                             FeedPost swarmNotification = new FeedPost();
                             swarmNotification.Type = 'LinkPost';
                             swarmNotification.ParentId = rule.User__c;
-                            swarmNotification.Title = thisOppty.Name;
+                            swarmNotification.Title = 'Link to Opportunity Record Swarmed';
                             swarmNotification.Body = 'You have automatically swarmed an Opportunity.';
                             swarmNotification.LinkUrl = '/' + thisOppty.Id;
                             feedNotifications.add(swarmNotification);
@@ -121,6 +125,10 @@ public with sharing global class SwarmHelper {
 
 
     @future
+    public static void evaluateCaseRulesFuture(List<Id> opptyIds) {
+        evaluateCaseRules(opptyIds);
+    }
+
     public static void evaluateCaseRules(List<Id> caseIds) {
     
         // Get user and group key prefixes so we can test to see what the UserOrGroupId field contains
@@ -186,7 +194,7 @@ public with sharing global class SwarmHelper {
                             FeedPost swarmNotification = new FeedPost();
                             swarmNotification.Type = 'LinkPost';
                             swarmNotification.ParentId = rule.User__c;
-                            swarmNotification.Title = thisCase.CaseNumber;
+                            swarmNotification.Title = 'Link to Case Record Swarmed';
                             swarmNotification.Body = 'You have automatically swarmed a Case.';
                             swarmNotification.LinkUrl = '/' + thisCase.Id;
                             feedNotifications.add(swarmNotification);
@@ -206,6 +214,10 @@ public with sharing global class SwarmHelper {
     
 
     @future
+    public static void evaluateLeadRulesFuture(List<Id> opptyIds) {
+        evaluateLeadRules(opptyIds);
+    }
+
     public static void evaluateLeadRules(List<Id> leadIds) {
     
         List<Lead> leads = [SELECT Id, Name, Rating, Status, LeadSource, Industry, OwnerId FROM Lead WHERE Id IN :leadIds];
@@ -262,7 +274,7 @@ public with sharing global class SwarmHelper {
                             FeedPost swarmNotification = new FeedPost();
                             swarmNotification.Type = 'LinkPost';
                             swarmNotification.ParentId = rule.User__c;
-                            swarmNotification.Title = thisLead.Name;
+                            swarmNotification.Title = 'Link to Lead Record Swarmed';
                             swarmNotification.Body = 'You have automatically swarmed a Lead.';
                             swarmNotification.LinkUrl = '/' + thisLead.Id;
                             feedNotifications.add(swarmNotification);

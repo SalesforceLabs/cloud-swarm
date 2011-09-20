@@ -125,8 +125,8 @@ public with sharing class LeadSwarmRuleSetup {
        return options;
     }
 
-    public List<SelectOption> getUserOptions() {
-        List<SelectOption> options = new List<SelectOption>();
+    public PaginatedSelectList getUserOptions() {
+        PaginatedSelectList options = new PaginatedSelectList ();
 
         for (User thisUser: 
                 [select Id, FirstName, LastName from User where isActive = true and UserType = 'Standard' order by LastName, FirstName]) {

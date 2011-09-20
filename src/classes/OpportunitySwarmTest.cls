@@ -51,7 +51,7 @@ public class OpportunitySwarmTest {
         // Check that options are populating
         System.assert(0 < controller.getStageOptions().size());
         System.assert(0 < controller.getTypeOptions().size());
-        System.assert(0 < controller.getUserOptions().size());
+        System.assert(0 < controller.getUserOptions().getSize());
     }
 
     static testMethod void testAllOpportunities() {

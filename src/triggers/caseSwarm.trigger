@@ -35,5 +35,9 @@ trigger caseSwarm on Case(after insert, after update) {
      caseIds.add(c.Id);
    }//for
    
-   swarmHelper.evaluateCaseRules(caseIds);
+    if (caseIds.size() > 1) {
+       swarmHelper.evaluateCaseRulesFuture(caseIds);
+    } else {
+       swarmHelper.evaluateCaseRules(caseIds);
+    }
 }

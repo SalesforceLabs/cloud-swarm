@@ -11,6 +11,7 @@
         <members>LeadSwarmTest</members>
         <members>OpportunitySwarmTest</members>
         <members>OpptySwarmRuleSetup</members>
+        <members>PaginatedSelectList</members>
         <members>SwarmHelper</members>
         <members>SwarmTestUtility</members>
         <name>ApexClass</name>

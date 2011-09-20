@@ -90,8 +90,26 @@
         <apex:pageBlock title="Step 2: Whom do you want to auto-follow these Opportunities?">
         
             <apex:selectList value="{!usersSelected}" multiselect="true" styleClass="multiselect">
-                    <apex:selectOptions value="{!userOptions}"/>
-            </apex:selectList>
+                    <apex:selectOptions value="{!userOptions.0}"/>
+                    <apex:selectOptions value="{!userOptions.1}"/>
+                    <apex:selectOptions value="{!userOptions.2}"/>
+                    <apex:selectOptions value="{!userOptions.3}"/>
+                    <apex:selectOptions value="{!userOptions.4}"/>
+                    <apex:selectOptions value="{!userOptions.5}"/>
+                    <apex:selectOptions value="{!userOptions.6}"/>
+                    <apex:selectOptions value="{!userOptions.7}"/>
+                    <apex:selectOptions value="{!userOptions.8}"/>
+                    <apex:selectOptions value="{!userOptions.9}"/>
+                    <apex:selectOptions value="{!userOptions.10}"/>
+                    <apex:selectOptions value="{!userOptions.11}"/>
+                    <apex:selectOptions value="{!userOptions.12}"/>
+                    <apex:selectOptions value="{!userOptions.13}"/>
+                    <apex:selectOptions value="{!userOptions.14}"/>
+                    <apex:selectOptions value="{!userOptions.15}"/>
+                    <apex:selectOptions value="{!userOptions.16}"/>
+                    <apex:selectOptions value="{!userOptions.17}"/>
+                    <apex:selectOptions value="{!userOptions.18}"/>
+                    <apex:selectOptions value="{!userOptions.19}"/>            </apex:selectList>
 
             <p><apex:inputCheckbox id="notify" value="{!notify}" title="Puts a post on the the newsfeed of users with a link to the record swarmed." /> Notify on Swarm?</p>
         

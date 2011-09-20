@@ -56,7 +56,7 @@ public class CaseSwarmTest {
         System.assert(0 < controller.getStatusOptions().size());
         System.assert(0 < controller.getPriorityOptions().size());
         System.assert(0 < controller.getTypeOptions().size());
-        System.assert(0 < controller.getUserOptions().size());
+        System.assert(0 < controller.getUserOptions().getSize());
     }
     
     static testMethod void testAllCases() {
