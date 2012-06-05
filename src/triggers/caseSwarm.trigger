@@ -36,7 +36,10 @@ trigger caseSwarm on Case(after insert, after update) {
    }//for
    
     if (caseIds.size() > 1) {
-       swarmHelper.evaluateCaseRulesFuture(caseIds);
+    	// Future methods cannot be called from other future methods or batch processes
+        if(!System.isBatch() && !System.isFuture()){
+        	swarmHelper.evaluateCaseRulesFuture(caseIds);
+		}
     } else {
        swarmHelper.evaluateCaseRules(caseIds);
     }

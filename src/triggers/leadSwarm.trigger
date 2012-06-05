@@ -36,7 +36,10 @@ trigger leadSwarm on Lead (after insert, after update) {
     }// for
 
     if (leadIds.size() > 1) {
-        SwarmHelper.evaluateLeadRulesFuture(leadIds);
+    	// Future methods cannot be called from other future methods or batch processes
+        if(!System.isBatch() && !System.isFuture()){
+        	SwarmHelper.evaluateLeadRulesFuture(leadIds);
+        }
     } else {
         SwarmHelper.evaluateLeadRules(leadIds);
     }
