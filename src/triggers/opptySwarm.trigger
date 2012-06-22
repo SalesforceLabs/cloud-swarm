@@ -36,7 +36,10 @@ trigger opptySwarm on Opportunity (after insert, after update) {
     }// for
 
     if (opptyIds.size() > 1) {
-        SwarmHelper.evaluateOpptyRulesFuture(opptyIds);
+    	// Future methods cannot be called from other future methods or batch processes
+        if(!System.isBatch() && !System.isFuture()){
+        	SwarmHelper.evaluateOpptyRulesFuture(opptyIds);
+        }
     } else {
         SwarmHelper.evaluateOpptyRules(opptyIds);
     }
