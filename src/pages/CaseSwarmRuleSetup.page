@@ -87,7 +87,7 @@
             </apex:selectList></div></p>
         </apex:pageBlock>
 
-        <apex:pageBlock title="Step 2: Whom do you want to auto-follow these Cases?">
+        <apex:pageBlock title="Step 2: Who do you want to auto-follow these Cases?">
         
             <apex:selectList value="{!usersSelected}" multiselect="true" styleClass="multiselect">
                     <apex:selectOptions value="{!userOptions.0}"/>
