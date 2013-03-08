@@ -107,7 +107,7 @@ public without sharing global class SwarmHelper {
                             swarmNotification.ParentId = rule.User__c;
                             swarmNotification.Title = 'Link to Opportunity Record Swarmed';
                             swarmNotification.Body = 'You have automatically swarmed an Opportunity.';
-                            swarmNotification.LinkUrl = '/' + thisOppty.Id;
+                            swarmNotification.LinkUrl = 'https://' + System.URL.getSalesforceBaseURL().getHost() + '/' + thisOppty.Id;
                             feedNotifications.add(swarmNotification);
                         }// if 3
                     }//if 2
@@ -196,7 +196,7 @@ public without sharing global class SwarmHelper {
                             swarmNotification.ParentId = rule.User__c;
                             swarmNotification.Title = 'Link to Case Record Swarmed';
                             swarmNotification.Body = 'You have automatically swarmed a Case.';
-                            swarmNotification.LinkUrl = '/' + thisCase.Id;
+                            swarmNotification.LinkUrl = 'https://' + System.URL.getSalesforceBaseURL().getHost() + '/' + thisCase.Id;
                             feedNotifications.add(swarmNotification);
                         }// if 3
                     }//if 2
@@ -276,7 +276,7 @@ public without sharing global class SwarmHelper {
                             swarmNotification.ParentId = rule.User__c;
                             swarmNotification.Title = 'Link to Lead Record Swarmed';
                             swarmNotification.Body = 'You have automatically swarmed a Lead.';
-                            swarmNotification.LinkUrl = '/' + thisLead.Id;
+                            swarmNotification.LinkUrl = 'https://' + System.URL.getSalesforceBaseURL().getHost() + '/' + thisLead.Id;
                             feedNotifications.add(swarmNotification);
                         }// if 3
                     }//if 2
