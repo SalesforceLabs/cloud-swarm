@@ -1,7 +1,7 @@
 <apex:page tabStyle="Feed_Post_Swarm_Rule__c" title="Feed Post Swarm Rule Setup" controller="FeedPostSwarmRuleSetup">
 
     <link rel="stylesheet" href="{!$Resource.jQuery_CSS}" type="text/css" />
-    <link type="text/css" rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/themes/base/ui.all.css" />
+    <link type="text/css" rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/themes/base/ui.all.css" />
     <link type="text/css" href="{!$Resource.jQuery_Multiselect_CSS}" rel="stylesheet" />
     <script type="text/javascript" src="{!$Resource.jQuery_JS}"></script>
     <script type="text/javascript" src="{!$Resource.jQuery_UI_JS}"></script>
