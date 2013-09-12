@@ -39,7 +39,7 @@ public without sharing global class SwarmHelper {
 
     public static void evaluateOpptyRules(List<Id> opptyIds) {
     
-        List<Opportunity> opptys = [SELECT Id, Name, Type, AccountId, StageName, Amount, OwnerId
+        List<Opportunity> opptys = [SELECT Id, Name, Type, AccountId, Account.OwnerId, StageName, Amount, OwnerId
             FROM Opportunity WHERE Id IN :opptyIds];
         
         List<Opportunity_Swarm_Rule__c> rules = [select type__c, Opportunity_amount__c, Opportunity_stage__c, 
@@ -56,18 +56,28 @@ public without sharing global class SwarmHelper {
         // Pre-load list of all account owners for opptys
         Set<Id> acctIds = new Set<Id>();
         Set<Id> ownerIds = new Set<Id>();
+        
+        Map<Id,Id> acctOwnerIds = new Map<Id, Id>();
+        
         for (Opportunity o : opptys) {
             if (acctIds.contains(o.AccountId) == FALSE){
                 acctIds.add(o.AccountId);
             }//if
             ownerIds.add(o.OwnerId);
+            
+            if (o.AccountId != null)
+            {
+            	acctOwnerIds.put(o.AccountId, o.Account.ownerId);
+            }
         }//for
     
+        /***  
         List<Account> accts = [SELECT ownerId, Id FROM Account WHERE Id IN :acctIds];
         Map<Id,Id> acctOwnerIds = new Map<Id, Id>();
         for (Account a : accts) {
             acctOwnerIds.put(a.Id, a.ownerId);
         }//for
+        */
         
         // Pre-load list of managers for oppty owners
         Map<Id,Id> ownerManagers = new Map<Id, Id>();
