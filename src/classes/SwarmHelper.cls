@@ -70,14 +70,6 @@ public without sharing global class SwarmHelper {
             	acctOwnerIds.put(o.AccountId, o.Account.ownerId);
             }
         }//for
-    
-        /***  
-        List<Account> accts = [SELECT ownerId, Id FROM Account WHERE Id IN :acctIds];
-        Map<Id,Id> acctOwnerIds = new Map<Id, Id>();
-        for (Account a : accts) {
-            acctOwnerIds.put(a.Id, a.ownerId);
-        }//for
-        */
         
         // Pre-load list of managers for oppty owners
         Map<Id,Id> ownerManagers = new Map<Id, Id>();
