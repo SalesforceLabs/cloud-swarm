@@ -47,7 +47,7 @@ trigger feedPostSwarm on FeedItem (after insert) {
     List<EntitySubscription> unsubs = new List<EntitySubscription>();
     
     // Get all subscriptions and put in string concatenating subscriber + object ID
-    List<EntitySubscription> existingfeedItemSubList = [select SubscriberId, ParentId from EntitySubscription where ParentId in :feedItemIds];
+    List<EntitySubscription> existingfeedItemSubList = [select SubscriberId, ParentId from EntitySubscription where ParentId in :feedItemIds limit 1000];
     
     Map<String, EntitySubscription> existingFeedItemSubs = new Map<String, EntitySubscription>();
     for (EntitySubscription es : existingfeedItemSubList) {
