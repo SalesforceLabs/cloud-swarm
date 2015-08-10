@@ -47,7 +47,7 @@ public without sharing global class SwarmHelper {
         List<EntitySubscription> subs = new List<EntitySubscription>();
         
         // Get all subscriptions and put in string concatenating subscriber + object ID
-        List<EntitySubscription> existingOpptySubs = [select SubscriberId, ParentId from EntitySubscription where ParentId in :opptys];
+        List<EntitySubscription> existingOpptySubs = [select SubscriberId, ParentId from EntitySubscription where ParentId in :opptys limit 1000];
         Set<String> existingOpptySubsIds = new Set<String>();
         for (EntitySubscription es:existingOpptySubs) {
             existingOpptySubsIds.add((String)es.SubscriberId + es.ParentId);
@@ -140,7 +140,7 @@ public without sharing global class SwarmHelper {
         
         // Get all subscriptions and put in string concatenating subscriber + object ID
         List<EntitySubscription> subs = new List<EntitySubscription>();
-        List<EntitySubscription> existingOpptySubs = [select SubscriberId, ParentId from EntitySubscription where ParentId in :cases];
+        List<EntitySubscription> existingOpptySubs = [select SubscriberId, ParentId from EntitySubscription where ParentId in :cases limit 1000];
         Set<String> existingOpptySubsIds = new Set<String>();
         for (EntitySubscription es : existingOpptySubs){
             existingOpptySubsIds.add((String)es.SubscriberId + es.ParentId);
@@ -229,7 +229,7 @@ public without sharing global class SwarmHelper {
         List<EntitySubscription> subs = new List<EntitySubscription>();
         
         // Get all subscriptions and put in string concatenating subscriber + object ID
-        List<EntitySubscription> existingLeadSubs = [select SubscriberId, ParentId from EntitySubscription where ParentId in :leads];
+        List<EntitySubscription> existingLeadSubs = [select SubscriberId, ParentId from EntitySubscription where ParentId in :leads limit 1000];
         Set<String> existingLeadSubsIds = new Set<String>();
         for (EntitySubscription es : existingLeadSubs) {
             existingLeadSubsIds.add((String)es.SubscriberId + es.ParentId);
